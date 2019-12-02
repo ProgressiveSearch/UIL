@@ -1,0 +1,42 @@
+MODEL:
+  PRETRAIN_PATH: '/export/home/lxy/.torch/models/resnet50-19c8e357.pth'
+  CUDA: 2
+
+
+INPUT:
+  SIZE_TRAIN: [256, 128]
+  SIZE_TEST: [256, 128]
+
+DATASETS:
+  BASE: 'duke2market'
+  ONLINE: 'market1501'
+
+DATALOADER:
+  SAMPLER: 'softmax_triplet'
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  BASE_LR: 0.1
+  LATER_LR: 0.01
+  BIAS_LR_FACTOR: 1
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+  MOMENTUM: 0.9
+
+  IMS_PER_BATCH: 16
+
+  STEPS: [16]
+  GAMMA: 0.1
+
+  CHECKPOINT_PERIOD: 50
+  LOG_PERIOD: 20
+  EVAL_PERIOD: 50
+
+TEST:
+  IMS_PER_BATCH: 256
+  WEIGHT: "path"
+
+OUTPUT_DIR: "cluster_merge_label_smooth"
+

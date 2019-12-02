@@ -1,0 +1,51 @@
+MODEL:
+  PRETRAIN_PATH: '/export/home/lxy/.torch/models/resnet50-19c8e357.pth'
+  CUDA: 2
+
+
+INPUT:
+  SIZE_TRAIN: [256, 128]
+  SIZE_TEST: [256, 128]
+
+DATASETS:
+#  BASE: 'duke2market'
+  BASE: 'market2duke'
+#  BASE: 'dukemtmc'
+#  BASE: 'market1501'
+#  ONLINE: 'market1501'
+  ONLINE: 'dukemtmc'
+
+DATALOADER:
+  SAMPLER: 'softmax_triplet'
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+
+SOLVER:
+  OPTIMIZER_NAME: 'Adam'
+  MAX_EPOCHS: 350
+  BASE_LR: 0.00035
+  BIAS_LR_FACTOR: 1
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+  IMS_PER_BATCH: 64
+
+  STEPS: [80, 180]
+  GAMMA: 0.1
+
+  WARMUP_FACTOR: 0.01
+  WARMUP_ITERS: 20
+  WARMUP_METHOD: 'linear'
+
+  MARGIN: 0.3
+
+  CHECKPOINT_PERIOD: 50
+  LOG_PERIOD: 20
+  EVAL_PERIOD: 50
+
+TEST:
+  IMS_PER_BATCH: 256
+  WEIGHT: "iccv_logs/market2duke/resnet50_model_350.pth"
+
+OUTPUT_DIR: ""
+
+
